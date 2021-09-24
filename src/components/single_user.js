@@ -17,6 +17,7 @@ function Single({data})
             }
             return null
         })
+        console.log(oneuser)
         setUserInfo(oneuser[0])
         setUserUpdate({})
         window.location.href="#edit"
@@ -29,7 +30,7 @@ function Single({data})
                 <Card
                     style={styleId === data.id.toString() ? { backgroundColor: '#d1e7dd', width: '18rem' , marginTop: '2%' , borderRadius : '10px'} : { width: '18rem' , marginTop: '2%' , borderRadius : '10px' }}  id={data.id} onClick={() => {setStyleId('')}}
                     hoverable
-                    cover={<img style={{height : 286 , borderRadius : '10px'}} src={data.avatar} alt ="" />}
+                    cover={<img style={{height : 286 , borderRadius : '10px'}} src={data.id === userUpdate.id ? data.avatar = userUpdate.avatar && userUpdate.avatar : data.avatar} alt ="" />}
                 >
                     <Meta
                         title={<b><u>{'User Info' + (data.id) + " :"}</u></b>}

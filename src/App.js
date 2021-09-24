@@ -5,7 +5,7 @@ import Search from './components/seacrhform'
 import './index.css'
 import Description from './components/listdescription';
 import Users from './components/all_users';
-import {styleContext , editContext , updatedUserContext} from './components/context'
+import {styleContext , editContext , updatedUserContext, addUserContext} from './components/context'
 import Edit from './components/edit_form';
 import About from './components/about';
 
@@ -17,6 +17,7 @@ function App() {
   const url = 'https://reqres.in/api/users?page=2'
   const [userInfo , setUserInfo] = useState({})
   const [userupdate , setUserUpdate] = useState({})
+  const [addUser , setAddUser] = useState({})
   const getUsers = async () => {
     const response = await fetch(url)
     const all_users = await response.json()
@@ -41,13 +42,15 @@ function App() {
       <>
         <styleContext.Provider value={[selected, setSelected]}>
           <editContext.Provider value={[userInfo, setUserInfo]}>
-            <updatedUserContext.Provider value={[userupdate , setUserUpdate]}>
+            <updatedUserContext.Provider value={[userupdate, setUserUpdate]}>
+              <addUserContext.Provider value={[addUser,setAddUser]}>
               <Header />
               <Description />
               <Search users={users}/>
               <Users users={users} />
               <Edit />
               <About />    
+              </addUserContext.Provider>
             </updatedUserContext.Provider>
           </editContext.Provider>
         </styleContext.Provider>

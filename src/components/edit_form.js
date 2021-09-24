@@ -1,16 +1,23 @@
 import React , {useContext} from 'react'
 import { Layout, Form, Input , Button , Select , Row , Col ,message } from 'antd'
-import {FileSyncOutlined} from '@ant-design/icons'
-import {editContext , updatedUserContext} from './context'
+import {FileSyncOutlined , UserAddOutlined} from '@ant-design/icons'
+import {addUserContext, editContext , updatedUserContext} from './context'
 
 function Edit()
 {
     const {Content} = Layout
     const [userInfo, setUserInfo] = useContext(editContext)
     const [userUpdate, setUserUpdate] = useContext(updatedUserContext)
+    const [addUser,setAddUser] = useContext(addUserContext)
 
     const success = () => {
-        message.success('Information updated successfully!!');
+        message.success('Information Updated successfully!!');
+    };
+     const successAdd = () => {
+        message.success('New user added successfully!!');
+    };
+    const error = () => {
+        message.error('All fields are required!!');
     };
 
     const handleSubmit = () => {
@@ -32,6 +39,17 @@ function Edit()
         <Option value=".png">.png</Option>
     </Select>
     );
+
+    const handleClick = () => {
+        console.log(addUser)
+        if (userInfo.first_name !== '' && userInfo.last_name !== '' && userInfo.email !== '' && userInfo.avatar !== '') {
+            setAddUser({ ...userInfo, id: new Date().getTime() })
+            setUserInfo({ ...userInfo, id: '', first_name: '', last_name: '', email: '', avatar: '', disable: true })
+            successAdd()
+        }
+        else
+            error()
+    }
     return (
         <>
             <Layout style={{backgroundColor : 'white', border : 3 , borderColor: 'gray' , borderRadius : '50%' , margin : '0 7% 0 7%'}}>
@@ -70,13 +88,19 @@ function Edit()
                     <Row>
                         <Col sm={24}>
                         <Form.Item label={<h5>New Profile Photo</h5> } style={{marginTop : '2%'}}>
-                            <Input addonBefore={selectBefore} addonAfter={selectAfter} placeholder="Enter photo's url" />
+                                    <Input
+                                        addonBefore={selectBefore}
+                                        addonAfter={selectAfter}
+                                        placeholder="Enter photo's url"
+                                        value={userInfo.avatar}
+                                        onChange={(e) => setUserInfo({ ...userInfo, avatar: e.target.value })}/>
                         </Form.Item>
                         </Col>
                     </Row>
                     <center>
                     <Form.Item>    
-                        <Button type='primary' htmlType="submit" style={{marginBottom : '1%'}} disabled = {userInfo.id === undefined? true : userInfo.disable}><FileSyncOutlined />{' '}Update Information</Button>
+                        <Button type='primary' htmlType="submit" style={{marginBottom : '1%' , marginRight : '1%'}} disabled = {userInfo.id === undefined? true : userInfo.disable}><FileSyncOutlined />{' '}Update Information</Button>
+                        <Button type="primary" style={{ marginBottom: '1%' }} onClick={handleClick}><UserAddOutlined />{' '}Add User</Button>
                     </Form.Item>
                     </center>
                     </Form>
