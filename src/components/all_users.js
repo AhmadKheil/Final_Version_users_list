@@ -1,16 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Layout, Row } from "antd";
 import Single from "./single_user";
-import { addUserContext } from "./context";
 
 function Users({ users, updateCallbackfunc, deleteUserFunc }) {
   const { Content } = Layout;
-  const [addUser, setAddUser] = useContext(addUserContext);
-  if (addUser.id !== undefined) {
-    users.push(addUser);
-    setAddUser({});
-  }
-
   const handleCallback = (information) => {
     updateCallbackfunc(information);
   };

@@ -6,8 +6,8 @@ import "./index.css";
 import Description from "./components/listdescription";
 import Users from "./components/all_users";
 import { message } from "antd";
-import { styleContext, addUserContext } from "./components/context";
-import Edit from "./components/edit_form";
+import { styleContext } from "./components/context";
+import Adduser from "./components/add_form";
 import About from "./components/about";
 
 const url = "https://reqres.in/api/users?page=2";
@@ -16,13 +16,15 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
   const [selected, setSelected] = useState("");
-  const [addUser, setAddUser] = useState({});
 
   const successDelete = () => {
     message.success("User deleted successfully!!");
   };
   const successUpdate = () => {
     message.success("User updated successfully!!");
+  };
+  const successAdd = () => {
+    message.success("User added successfully!!");
   };
 
   const getUsers = useMemo(
@@ -64,23 +66,30 @@ function App() {
     successDelete();
   };
 
+  const addUserFunc = (newUser) => {
+    users.push(newUser);
+    setUsers(
+      users.map((user) => {
+        return user;
+      })
+    );
+    successAdd();
+  };
   return loading ? (
     <Spinner />
   ) : (
     <>
       <styleContext.Provider value={[selected, setSelected]}>
-        <addUserContext.Provider value={[addUser, setAddUser]}>
-          <Header />
-          <Description />
-          <Search users={users} />
-          <Users
-            users={users}
-            updateCallbackfunc={updateUsersInformations}
-            deleteUserFunc={deleteUserFunc}
-          />
-          <Edit />
-          <About />
-        </addUserContext.Provider>
+        <Header />
+        <Description />
+        <Search users={users} />
+        <Users
+          users={users}
+          updateCallbackfunc={updateUsersInformations}
+          deleteUserFunc={deleteUserFunc}
+        />
+        <Adduser addUserfunc={addUserFunc} />
+        <About />
       </styleContext.Provider>
     </>
   );
