@@ -1,54 +1,176 @@
-import React , {useContext} from 'react'
-import { Card, Col, Divider, Button } from 'antd'
-import {EditOutlined} from '@ant-design/icons'
-import {styleContext , editContext , updatedUserContext} from './context'
+import React, { useContext, useState } from "react";
+import { Card, Col, Divider, Button, Form, Input, Row } from "antd";
+import { EditOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
+import { styleContext } from "./context";
 
-function Single({data})
-{
-    const [styleId, setStyleId] = useContext(styleContext);
-    const [userInfo, setUserInfo] = useContext(editContext);
-    const [userUpdate, setUserUpdate] = useContext(updatedUserContext)
-    
-    const handleEdit = (id) => {
-        console.log(userInfo)
-        const oneuser = [data].map(user => {
-            if (user.id === id) {
-                return { ...user, disable: false }
+function Single({ data, callbackfunc, deletefunc }) {
+  const [styleId, setStyleId] = useContext(styleContext);
+  const [disableButton, setDisableButton] = useState(true);
+  const [information, setInformation] = useState({
+    id: data.id,
+    first_name: data.first_name,
+    last_name: data.last_name,
+    email: data.email,
+    avatar: data.avatar,
+  });
+
+  const handleSubmit = () => {
+    callbackfunc(information);
+    setDisableButton(true);
+  };
+
+  const handleDelete = () => {
+    deletefunc(information.id);
+  };
+
+  const { Meta } = Card;
+  return (
+    <>
+      <Col sm={8}>
+        <Card
+          style={
+            styleId.toString() === data.id.toString()
+              ? {
+                  backgroundColor: "#d1e7dd",
+                  width: "18rem",
+                  marginTop: "2%",
+                  borderRadius: "10px",
+                }
+              : { width: "18rem", marginTop: "2%", borderRadius: "10px" }
+          }
+          id={data.id}
+          onClick={() => {
+            setStyleId("");
+          }}
+          hoverable
+          cover={
+            <img
+              style={{ height: 286, borderRadius: "10px" }}
+              src={data.avatar}
+              alt=""
+            />
+          }
+        >
+          <Meta
+            title={
+              <b>
+                <u>{"User Info :"}</u>
+              </b>
             }
-            return null
-        })
-        console.log(oneuser)
-        setUserInfo(oneuser[0])
-        setUserUpdate({})
-        window.location.href="#edit"
-    }
-
-    const { Meta } = Card;
-    return (
-        <>
-            <Col sm={8}>
-                <Card
-                    style={styleId === data.id.toString() ? { backgroundColor: '#d1e7dd', width: '18rem' , marginTop: '2%' , borderRadius : '10px'} : { width: '18rem' , marginTop: '2%' , borderRadius : '10px' }}  id={data.id} onClick={() => {setStyleId('')}}
-                    hoverable
-                    cover={<img style={{height : 286 , borderRadius : '10px'}} src={data.id === userUpdate.id ? data.avatar = userUpdate.avatar && userUpdate.avatar : data.avatar} alt ="" />}
-                >
-                    <Meta
-                        title={<b><u>{'User Info' + (data.id) + " :"}</u></b>}
-                        description="Lorem ipsum odor amet, consectetuer adipiscing elit.
+            description="Lorem ipsum odor amet, consectetuer adipiscing elit.
                             Vel nullam eleifend vivamus. Augue urna sed velit elit.
                             Malesuada sodales ridiculus sodales. Tempor netus varius mauris."
-                    />
-                    <Divider>First Name</Divider>
-                    <center><Meta description={data.id === userUpdate.id ? data.first_name = userUpdate.first_name && userUpdate.first_name : data.first_name} /></center>
-                    <Divider>Last Name</Divider>
-                    <center><Meta description={data.id === userUpdate.id ? data.last_name = userUpdate.last_name && userUpdate.last_name : data.last_name} /></center>
-                    <Divider>Email</Divider>
-                    <center><Meta description={data.id === userUpdate.id ? data.email = userUpdate.email && userUpdate.email : data.email} /></center>
-                    <Divider />
-                    <center><Button type='primary' onClick={() => handleEdit(data.id)}><EditOutlined />{' '}Edit</Button></center>
-                </Card>
-            </Col>   
-        </>
-    )
+          />
+          <Form onFinish={handleSubmit}>
+            <Divider>First Name</Divider>
+            <center>
+              <Form.Item>
+                <Input
+                  style={{
+                    width: "90%",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                  type="text"
+                  required
+                  disabled={disableButton}
+                  value={information.first_name}
+                  onChange={(e) =>
+                    setInformation({
+                      ...information,
+                      first_name: e.target.value,
+                    })
+                  }
+                />
+              </Form.Item>
+            </center>
+            <Divider>Last Name</Divider>
+            <center>
+              <Form.Item>
+                <Input
+                  style={{
+                    width: "90%",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                  type="text"
+                  required
+                  disabled={disableButton}
+                  value={information.last_name}
+                  onChange={(e) =>
+                    setInformation({
+                      ...information,
+                      last_name: e.target.value,
+                    })
+                  }
+                />
+              </Form.Item>
+            </center>
+            <Divider>Email</Divider>
+            <center>
+              <Form.Item>
+                <Input
+                  style={{
+                    width: "90%",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                  type="text"
+                  required
+                  disabled={disableButton}
+                  value={information.email}
+                  onChange={(e) =>
+                    setInformation({
+                      ...information,
+                      email: e.target.value,
+                    })
+                  }
+                />
+              </Form.Item>
+            </center>
+            <Divider />
+            <Row>
+              <Col span={8}>
+                <Button
+                  type="primary"
+                  style={{
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    marginRight: "15px",
+                  }}
+                  onClick={handleDelete}
+                >
+                  <DeleteOutlined /> Del
+                </Button>
+              </Col>
+              <Col span={8}>
+                <Button
+                  type="primary"
+                  onClick={() => setDisableButton(!disableButton)}
+                  disabled={!disableButton}
+                >
+                  <EditOutlined /> Edit
+                </Button>
+              </Col>
+              <Col span={8}>
+                <Button
+                  type="primary"
+                  style={{
+                    backgroundColor: "#66CDAA",
+                    borderColor: "#66CDAA",
+                    marginLeft: "5px",
+                  }}
+                  htmlType="submit"
+                  disabled={disableButton}
+                >
+                  <SaveOutlined /> Save
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Card>
+      </Col>
+    </>
+  );
 }
-export default Single
+export default Single;
