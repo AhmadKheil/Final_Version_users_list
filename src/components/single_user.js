@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Card, Col, Divider, Button, Form, Input, Row } from "antd";
+import { Card, Col, Divider, Button, Form, Input, Row, Popconfirm } from "antd";
 import { EditOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import { styleContext } from "./context";
 
@@ -22,6 +22,8 @@ function Single({ data, callbackfunc, deletefunc }) {
   const handleDelete = () => {
     deletefunc(information.id);
   };
+
+  const cancel = () => console.log("delete operation canceled");
 
   const { Meta } = Card;
   return (
@@ -131,17 +133,24 @@ function Single({ data, callbackfunc, deletefunc }) {
             <Divider />
             <Row>
               <Col span={8}>
-                <Button
-                  type="primary"
-                  style={{
-                    backgroundColor: "red",
-                    borderColor: "red",
-                    marginRight: "15px",
-                  }}
-                  onClick={handleDelete}
+                <Popconfirm
+                  title="Are you sure you want to delete this user?"
+                  onConfirm={handleDelete}
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
                 >
-                  <DeleteOutlined /> Del
-                </Button>
+                  <Button
+                    type="primary"
+                    style={{
+                      backgroundColor: "red",
+                      borderColor: "red",
+                      marginRight: "15px",
+                    }}
+                  >
+                    <DeleteOutlined /> Del
+                  </Button>
+                </Popconfirm>
               </Col>
               <Col span={8}>
                 <Button
