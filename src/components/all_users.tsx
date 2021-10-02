@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout, Row } from "antd";
 import Single from "./single_user";
-import { User } from "../App";
+import { User, CallbackType1, CallbackType2 } from "../App";
 
 function Users({
   users,
@@ -13,11 +13,11 @@ function Users({
   deleteUserFunc: CallableFunction;
 }) {
   const { Content } = Layout;
-  const handleCallback = (information: User) => {
+  const handleCallback: CallbackType1 = (information: User) => {
     updateCallbackfunc(information);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete: CallbackType2 = (id: number) => {
     deleteUserFunc(id);
   };
   return (

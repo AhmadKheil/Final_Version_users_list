@@ -20,6 +20,13 @@ export interface User {
   avatar: string;
 }
 
+export interface CallbackType1 {
+  (user: User): void;
+}
+
+export interface CallbackType2 {
+  (id: number): void;
+}
 function App() {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<User[]>([]);
@@ -49,7 +56,7 @@ function App() {
     setLoading(false);
   }, [getUsers]);
 
-  const updateUsersInformations = (information: User): void => {
+  const updateUsersInformations: CallbackType1 = (information: User) => {
     setUsers(
       users.map((user) => {
         if (user.id === information.id) {
@@ -63,7 +70,7 @@ function App() {
     successUpdate();
   };
 
-  const deleteUserFunc = (id: number): void => {
+  const deleteUserFunc: CallbackType2 = (id: number) => {
     setUsers(
       users.filter((user) => {
         return user.id !== id;
@@ -72,7 +79,7 @@ function App() {
     successDelete();
   };
 
-  const addUserFunc = (newUser: User): void => {
+  const addUserFunc: CallbackType1 = (newUser: User) => {
     users.push(newUser);
     setUsers(
       users.map((user) => {
