@@ -3,18 +3,19 @@ import { styleContext } from "./context";
 import { Layout, Row, Col, Form, Input, Button, Alert, Divider } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { SearchOutlined } from "@ant-design/icons";
+import { User } from "../App";
 
-function Search({ users }) {
+const Search = ({ users }: { users: User[] }) => {
   const [styleId, setStyleId] = useContext(styleContext);
   const [showMessage, setShowMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
-  const [alertId, setAlertId] = useState([]);
+  const [alertId, setAlertId] = useState<number[] | undefined>([]);
   const [variant, setVariant] = useState("");
 
-  var results = [];
-  var ids_of_results = [];
-  var final_ids = [];
+  var results: string[] = [];
+  var ids_of_results: (number | undefined)[][] = [];
+  var final_ids: any = [];
   var count = 0;
 
   const handlesubmit = () => {
@@ -64,7 +65,7 @@ function Search({ users }) {
       setVariant("success");
       setAlertId(
         // eslint-disable-next-line array-callback-return
-        final_ids.map((id) => {
+        final_ids.map((id: number) => {
           return (
             <>
               <Button
@@ -171,5 +172,5 @@ function Search({ users }) {
       </Layout>
     </>
   );
-}
+};
 export default Search;

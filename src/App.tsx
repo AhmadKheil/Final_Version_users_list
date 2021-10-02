@@ -12,18 +12,26 @@ import About from "./components/about";
 
 const url = "https://reqres.in/api/users?page=2";
 
+export interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  avatar: string;
+}
+
 function App() {
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [selected, setSelected] = useState("");
 
-  const successDelete = () => {
+  const successDelete = (): void => {
     message.success("User deleted successfully!!");
   };
-  const successUpdate = () => {
+  const successUpdate = (): void => {
     message.success("User updated successfully!!");
   };
-  const successAdd = () => {
+  const successAdd = (): void => {
     message.success("User added successfully!!");
   };
 
@@ -41,9 +49,7 @@ function App() {
     setLoading(false);
   }, [getUsers]);
 
-  const updateUsersInformations = (information) => {
-    console.log(information);
-    console.log(users);
+  const updateUsersInformations = (information: User): void => {
     setUsers(
       users.map((user) => {
         if (user.id === information.id) {
@@ -57,7 +63,7 @@ function App() {
     successUpdate();
   };
 
-  const deleteUserFunc = (id) => {
+  const deleteUserFunc = (id: number): void => {
     setUsers(
       users.filter((user) => {
         return user.id !== id;
@@ -66,7 +72,7 @@ function App() {
     successDelete();
   };
 
-  const addUserFunc = (newUser) => {
+  const addUserFunc = (newUser: User): void => {
     users.push(newUser);
     setUsers(
       users.map((user) => {

@@ -1,14 +1,23 @@
 import React from "react";
 import { Layout, Row } from "antd";
 import Single from "./single_user";
+import { User } from "../App";
 
-function Users({ users, updateCallbackfunc, deleteUserFunc }) {
+function Users({
+  users,
+  updateCallbackfunc,
+  deleteUserFunc,
+}: {
+  users: User[];
+  updateCallbackfunc: CallableFunction;
+  deleteUserFunc: CallableFunction;
+}) {
   const { Content } = Layout;
-  const handleCallback = (information) => {
+  const handleCallback = (information: User) => {
     updateCallbackfunc(information);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     deleteUserFunc(id);
   };
   return (
@@ -19,7 +28,7 @@ function Users({ users, updateCallbackfunc, deleteUserFunc }) {
       >
         <Content>
           <Row>
-            {users.map((user) => {
+            {users.map((user: User) => {
               return (
                 <Single
                   key={user.id}

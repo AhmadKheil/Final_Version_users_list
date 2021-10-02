@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Layout, Form, Input, Button, Select, Row, Col } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
+import { User } from "../App";
 
-function Adduser({ addUserfunc }) {
+function Adduser({ addUserfunc }: { addUserfunc: CallableFunction }) {
   const { Content } = Layout;
-  const [addUser, setAddUser] = useState({
-    id: Math.floor(Math.random() * 1000000 + 10).toString(),
+  const [addUser, setAddUser] = useState<User>({
+    id: Math.floor(Math.random() * 1000000 + 10),
     first_name: "",
     last_name: "",
     email: "",
@@ -13,10 +14,10 @@ function Adduser({ addUserfunc }) {
       "https://cdn2.iconfinder.com/data/icons/ecommerce-set-1-1/128/user_users_avatar_user_useri_icon-512.png",
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     addUserfunc(addUser);
     setAddUser({
-      id: Math.floor(Math.random() * 1000000 + 10).toString(),
+      id: Math.floor(Math.random() * 1000000 + 10),
       first_name: "",
       last_name: "",
       email: "",
@@ -50,12 +51,12 @@ function Adduser({ addUserfunc }) {
           margin: "0 7% 0 7%",
         }}
       >
-        <Content className="search align-items-center" id="edit">
-          <center>
+        <Content className="search align-items-center" id="add">
+          <div style={{ textAlign: "center" }}>
             <h2>
               <u>Enter this information if you want to add a user!</u>
             </h2>
-          </center>
+          </div>
           <br />
           <Form style={{ margin: "0% 1% 0% 1%" }} onFinish={handleSubmit}>
             <Row gutter={[8, 24]}>
@@ -125,7 +126,7 @@ function Adduser({ addUserfunc }) {
                 </Form.Item>
               </Col>
             </Row>
-            <center>
+            <div style={{ textAlign: "center" }}>
               <Form.Item>
                 <Button
                   type="primary"
@@ -135,7 +136,7 @@ function Adduser({ addUserfunc }) {
                   <UserAddOutlined /> Add User
                 </Button>
               </Form.Item>
-            </center>
+            </div>
           </Form>
         </Content>
       </Layout>

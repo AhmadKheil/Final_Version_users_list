@@ -2,11 +2,20 @@ import React, { useContext, useState } from "react";
 import { Card, Col, Divider, Button, Form, Input, Row, Popconfirm } from "antd";
 import { EditOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import { styleContext } from "./context";
+import { User } from "../App";
 
-function Single({ data, callbackfunc, deletefunc }) {
+function Single({
+  data,
+  callbackfunc,
+  deletefunc,
+}: {
+  data: User;
+  callbackfunc: CallableFunction;
+  deletefunc: CallableFunction;
+}) {
   const [styleId, setStyleId] = useContext(styleContext);
   const [disableButton, setDisableButton] = useState(true);
-  const [information, setInformation] = useState({
+  const [information, setInformation] = useState<User>({
     id: data.id,
     first_name: data.first_name,
     last_name: data.last_name,
@@ -14,7 +23,7 @@ function Single({ data, callbackfunc, deletefunc }) {
     avatar: data.avatar,
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     callbackfunc(information);
     setDisableButton(true);
   };
@@ -40,7 +49,7 @@ function Single({ data, callbackfunc, deletefunc }) {
                 }
               : { width: "18rem", marginTop: "2%", borderRadius: "10px" }
           }
-          id={data.id}
+          id={data.id.toString()}
           onClick={() => {
             setStyleId("");
           }}
@@ -65,7 +74,7 @@ function Single({ data, callbackfunc, deletefunc }) {
           />
           <Form onFinish={handleSubmit}>
             <Divider>First Name</Divider>
-            <center>
+            <div style={{ textAlign: "center" }}>
               <Form.Item>
                 <Input
                   style={{
@@ -85,9 +94,9 @@ function Single({ data, callbackfunc, deletefunc }) {
                   }
                 />
               </Form.Item>
-            </center>
+            </div>
             <Divider>Last Name</Divider>
-            <center>
+            <div style={{ textAlign: "center" }}>
               <Form.Item>
                 <Input
                   style={{
@@ -107,9 +116,9 @@ function Single({ data, callbackfunc, deletefunc }) {
                   }
                 />
               </Form.Item>
-            </center>
+            </div>
             <Divider>Email</Divider>
-            <center>
+            <div style={{ textAlign: "center" }}>
               <Form.Item>
                 <Input
                   style={{
@@ -129,7 +138,7 @@ function Single({ data, callbackfunc, deletefunc }) {
                   }
                 />
               </Form.Item>
-            </center>
+            </div>
             <Divider />
             <Row>
               <Col span={8}>
