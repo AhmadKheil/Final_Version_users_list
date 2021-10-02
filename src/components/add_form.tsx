@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Layout, Form, Input, Button, Select, Row, Col } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
-import { User } from "../App";
+import { User, CallbackType1 } from "../App";
 
-function Adduser({ addUserfunc }: { addUserfunc: CallableFunction }) {
+function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
   const { Content } = Layout;
   const [addUser, setAddUser] = useState<User>({
     id: Math.floor(Math.random() * 1000000 + 10),

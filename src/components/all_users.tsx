@@ -9,8 +9,8 @@ function Users({
   deleteUserFunc,
 }: {
   users: User[];
-  updateCallbackfunc: CallableFunction;
-  deleteUserFunc: CallableFunction;
+  updateCallbackfunc: CallbackType1;
+  deleteUserFunc: CallbackType2;
 }) {
   const { Content } = Layout;
   const handleCallback: CallbackType1 = (information: User) => {

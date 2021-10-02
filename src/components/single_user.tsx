@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Card, Col, Divider, Button, Form, Input, Row, Popconfirm } from "antd";
 import { EditOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import { styleContext } from "./context";
-import { User } from "../App";
+import { CallbackType1, CallbackType2, User } from "../App";
 
 function Single({
   data,
@@ -10,8 +10,8 @@ function Single({
   deletefunc,
 }: {
   data: User;
-  callbackfunc: CallableFunction;
-  deletefunc: CallableFunction;
+  callbackfunc: CallbackType1;
+  deletefunc: CallbackType2;
 }) {
   const [styleId, setStyleId] = useContext(styleContext);
   const [disableButton, setDisableButton] = useState(true);
