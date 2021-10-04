@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { Layout, Form, Input, Button, Select, Row, Col } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { User, CallbackType1 } from "../App";
+import {
+  AddFormLayoutStyle,
+  Div,
+  FormStyle,
+  FormItem,
+} from "../styled-components/AddFormStyle.style";
 
 function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
   const { Content } = Layout;
@@ -42,29 +48,18 @@ function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
 
   return (
     <>
-      <Layout
-        style={{
-          backgroundColor: "white",
-          border: 3,
-          borderColor: "gray",
-          borderRadius: "50%",
-          margin: "0 7% 0 7%",
-        }}
-      >
+      <AddFormLayoutStyle>
         <Content className="search align-items-center" id="add">
-          <div style={{ textAlign: "center" }}>
+          <Div>
             <h2>
               <u>Enter this information if you want to add a user!</u>
             </h2>
-          </div>
+          </Div>
           <br />
-          <Form style={{ margin: "0% 1% 0% 1%" }} onFinish={handleSubmit}>
+          <FormStyle onFinish={handleSubmit}>
             <Row gutter={[8, 24]}>
-              <Col span={8}>
-                <Form.Item
-                  label={<h5>Fisrt Name</h5>}
-                  style={{ marginTop: "2%" }}
-                >
+              <Col xs={24} xl={8}>
+                <FormItem label={<h5>Fisrt Name</h5>}>
                   <Input
                     placeholder="Enter your first name"
                     required
@@ -73,13 +68,10 @@ function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
                       setAddUser({ ...addUser, first_name: e.target.value })
                     }
                   />
-                </Form.Item>
+                </FormItem>
               </Col>
-              <Col span={8}>
-                <Form.Item
-                  label={<h5>Last Name</h5>}
-                  style={{ marginTop: "2%" }}
-                >
+              <Col xs={24} xl={8}>
+                <FormItem label={<h5>Last Name</h5>}>
                   <Input
                     placeholder="Enter your last name"
                     required
@@ -88,10 +80,10 @@ function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
                       setAddUser({ ...addUser, last_name: e.target.value })
                     }
                   />
-                </Form.Item>
+                </FormItem>
               </Col>
-              <Col span={8}>
-                <Form.Item label={<h5>Email</h5>} style={{ marginTop: "2%" }}>
+              <Col xs={24} xl={8}>
+                <FormItem label={<h5>Email</h5>}>
                   <Input
                     placeholder="Enter your email"
                     required
@@ -100,15 +92,12 @@ function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
                       setAddUser({ ...addUser, email: e.target.value })
                     }
                   />
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
-            <Row>
+            <Row gutter={[8, 24]}>
               <Col sm={24}>
-                <Form.Item
-                  label={<h5>New Profile Photo</h5>}
-                  style={{ marginTop: "2%" }}
-                >
+                <FormItem label={<h5>New Profile Photo</h5>}>
                   <Input
                     addonBefore={selectBefore}
                     addonAfter={selectAfter}
@@ -123,7 +112,7 @@ function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
                       setAddUser({ ...addUser, avatar: e.target.value })
                     }
                   />
-                </Form.Item>
+                </FormItem>
               </Col>
             </Row>
             <div style={{ textAlign: "center" }}>
@@ -137,9 +126,9 @@ function Adduser({ addUserfunc }: { addUserfunc: CallbackType1 }) {
                 </Button>
               </Form.Item>
             </div>
-          </Form>
+          </FormStyle>
         </Content>
-      </Layout>
+      </AddFormLayoutStyle>
     </>
   );
 }

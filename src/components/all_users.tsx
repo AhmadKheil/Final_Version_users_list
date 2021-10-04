@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Row } from "antd";
 import Single from "./single_user";
 import { User, CallbackType1, CallbackType2 } from "../App";
+import { AllUserLayoutStyle } from "../styled-components/AllUserStyle.style";
 
 function Users({
   users,
@@ -22,10 +23,7 @@ function Users({
   };
   return (
     <>
-      <Layout
-        id="cards"
-        style={{ marginTop: "4%", marginLeft: "7%", backgroundColor: "white" }}
-      >
+      <AllUserLayoutStyle id="cards">
         <Content>
           <Row>
             {users.map((user: User) => {
@@ -40,7 +38,7 @@ function Users({
             })}
           </Row>
         </Content>
-      </Layout>
+      </AllUserLayoutStyle>
     </>
   );
 }

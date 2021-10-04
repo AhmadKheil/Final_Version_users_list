@@ -1,8 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Card, Col, Divider, Button, Form, Input, Row, Popconfirm } from "antd";
+import { Card, Col, Divider, Form, Row, Popconfirm } from "antd";
 import { EditOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import { styleContext } from "./context";
 import { CallbackType1, CallbackType2, User } from "../App";
+import {
+  ButtonSyle,
+  CardStyle,
+  DivStyle,
+  InputStyle,
+} from "../styled-components/SingleUserStyle.style";
 
 function Single({
   data,
@@ -38,29 +44,14 @@ function Single({
   return (
     <>
       <Col sm={8}>
-        <Card
-          style={
-            styleId.toString() === data.id.toString()
-              ? {
-                  backgroundColor: "#d1e7dd",
-                  width: "18rem",
-                  marginTop: "2%",
-                  borderRadius: "10px",
-                }
-              : { width: "18rem", marginTop: "2%", borderRadius: "10px" }
-          }
+        <CardStyle
+          selected={styleId.toString() === data.id.toString()}
           id={data.id.toString()}
           onClick={() => {
             setStyleId("");
           }}
           hoverable
-          cover={
-            <img
-              style={{ height: 286, borderRadius: "10px" }}
-              src={data.avatar}
-              alt=""
-            />
-          }
+          cover={<img src={data.avatar} alt="" />}
         >
           <Meta
             title={
@@ -74,19 +65,14 @@ function Single({
           />
           <Form onFinish={handleSubmit}>
             <Divider>First Name</Divider>
-            <div style={{ textAlign: "center" }}>
+            <DivStyle>
               <Form.Item>
-                <Input
-                  style={{
-                    width: "90%",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
+                <InputStyle
                   type="text"
                   required
                   disabled={disableButton}
                   value={information.first_name}
-                  onChange={(e) =>
+                  onChange={(e: any) =>
                     setInformation({
                       ...information,
                       first_name: e.target.value,
@@ -94,21 +80,16 @@ function Single({
                   }
                 />
               </Form.Item>
-            </div>
+            </DivStyle>
             <Divider>Last Name</Divider>
-            <div style={{ textAlign: "center" }}>
+            <DivStyle>
               <Form.Item>
-                <Input
-                  style={{
-                    width: "90%",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
+                <InputStyle
                   type="text"
                   required
                   disabled={disableButton}
                   value={information.last_name}
-                  onChange={(e) =>
+                  onChange={(e: any) =>
                     setInformation({
                       ...information,
                       last_name: e.target.value,
@@ -116,21 +97,16 @@ function Single({
                   }
                 />
               </Form.Item>
-            </div>
+            </DivStyle>
             <Divider>Email</Divider>
-            <div style={{ textAlign: "center" }}>
+            <DivStyle>
               <Form.Item>
-                <Input
-                  style={{
-                    width: "90%",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
+                <InputStyle
                   type="text"
                   required
                   disabled={disableButton}
                   value={information.email}
-                  onChange={(e) =>
+                  onChange={(e: any) =>
                     setInformation({
                       ...information,
                       email: e.target.value,
@@ -138,7 +114,7 @@ function Single({
                   }
                 />
               </Form.Item>
-            </div>
+            </DivStyle>
             <Divider />
             <Row>
               <Col span={8}>
@@ -149,44 +125,33 @@ function Single({
                   okText="Yes"
                   cancelText="No"
                 >
-                  <Button
-                    type="primary"
-                    style={{
-                      backgroundColor: "red",
-                      borderColor: "red",
-                      marginRight: "15px",
-                    }}
-                  >
+                  <ButtonSyle type="primary" danger>
                     <DeleteOutlined /> Del
-                  </Button>
+                  </ButtonSyle>
                 </Popconfirm>
               </Col>
               <Col span={8}>
-                <Button
+                <ButtonSyle
                   type="primary"
                   onClick={() => setDisableButton(!disableButton)}
                   disabled={!disableButton}
                 >
                   <EditOutlined /> Edit
-                </Button>
+                </ButtonSyle>
               </Col>
               <Col span={8}>
-                <Button
+                <ButtonSyle
                   type="primary"
-                  style={{
-                    backgroundColor: "#66CDAA",
-                    borderColor: "#66CDAA",
-                    marginLeft: "5px",
-                  }}
+                  bgc="#66CDAA"
                   htmlType="submit"
                   disabled={disableButton}
                 >
                   <SaveOutlined /> Save
-                </Button>
+                </ButtonSyle>
               </Col>
             </Row>
           </Form>
-        </Card>
+        </CardStyle>
       </Col>
     </>
   );

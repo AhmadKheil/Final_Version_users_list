@@ -1,9 +1,14 @@
 import React, { useState, useContext } from "react";
 import { styleContext } from "./context";
-import { Layout, Row, Col, Form, Input, Button, Alert, Divider } from "antd";
+import { Row, Col, Form, Input, Button, Divider } from "antd";
 import { Content } from "antd/lib/layout/layout";
 import { SearchOutlined } from "@ant-design/icons";
 import { User } from "../App";
+import {
+  AlertStyle,
+  RowStyle,
+  SearchLayoutStyle,
+} from "../styled-components/SearchFormStyle.style";
 
 const Search = ({ users }: { users: User[] }) => {
   const [styleId, setStyleId] = useContext(styleContext);
@@ -101,17 +106,9 @@ const Search = ({ users }: { users: User[] }) => {
 
   return (
     <>
-      <Layout
-        style={{
-          backgroundColor: "white",
-          border: 3,
-          borderColor: "gray",
-          borderRadius: "50%",
-          margin: "0 7% 0 7%",
-        }}
-      >
+      <SearchLayoutStyle>
         <Content className="search align-items-center">
-          <Row style={{ margin: "0 4% 0 4%" }}>
+          <RowStyle>
             <Col sm={18}>
               {" "}
               <h3>
@@ -121,6 +118,7 @@ const Search = ({ users }: { users: User[] }) => {
                 </u>
               </h3>
             </Col>
+
             <Col sm={6}>
               <Form className="searchform" onFinish={handlesubmit}>
                 <Row className="align-items-center">
@@ -152,12 +150,11 @@ const Search = ({ users }: { users: User[] }) => {
                 </Row>
               </Form>
             </Col>
-          </Row>
+          </RowStyle>
           {showMessage ? (
             <>
               {" "}
-              <Alert
-                style={{ margin: "0 4% 0 4%", height: "100px" }}
+              <AlertStyle
                 type={variant === "success" ? "success" : "error"}
                 message={message}
                 action={alertId}
@@ -169,7 +166,7 @@ const Search = ({ users }: { users: User[] }) => {
             </>
           ) : null}
         </Content>
-      </Layout>
+      </SearchLayoutStyle>
     </>
   );
 };

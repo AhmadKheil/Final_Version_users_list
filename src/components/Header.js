@@ -9,16 +9,27 @@ import {
   UserAddOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
+import {
+  HeaderFixed,
+  MenuStyle,
+  RightSide,
+} from "../styled-components/HeaderStyle.style";
 
 function Header() {
-  const { Header } = Layout;
   return (
     <>
       <Layout>
-        <Header className="header">
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
+        <HeaderFixed>
+          <RightSide>
+            <svg>
+              <image href="https://static.thenounproject.com/png/402528-200.png" />
+            </svg>
+            <h3>Users List</h3>
+          </RightSide>
+          <MenuStyle theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
             <Menu.Item key="1">
-              <a href="#1">
+              {/* eslint-disable-next-line */}
+              <a href="#">
                 <HomeOutlined /> Home
               </a>
             </Menu.Item>
@@ -37,8 +48,8 @@ function Header() {
                 <InfoCircleOutlined /> About
               </a>
             </Menu.Item>
-          </Menu>
-        </Header>
+          </MenuStyle>
+        </HeaderFixed>
       </Layout>
     </>
   );
